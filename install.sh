@@ -19,6 +19,9 @@ if [ "$(which brew)" != "brew not found" ]; then
     if [ -z "$(brew ls --versions go)" ]; then
         brew install go
     fi
+    if [ -z "$(brew ls --versions z)" ]; then
+        brew install z
+    fi
     if [ -z "$(brew ls --versions rbenv)" ]; then
         # Remember to setup default ruby
         brew install rbenv ruby-build
