@@ -6,13 +6,15 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="gallois"
+ZSH_THEME="eastwood"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias emacs="/usr/local/Cellar/emacs/24.3/bin/emacs"
 alias ag="ag --all-types --smart-case"
+alias phusion="phusion --password=digifreak1991"
+alias be="bundle exec"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -43,22 +45,26 @@ alias ag="ag --all-types --smart-case"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git go golang vagrant brew lein gem hub)
+plugins=(git go golang rbenv vagrant brew lein gem hub)
 
-[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-[ -f `brew --prefix`/etc/profile.d/z.sh ] && . `brew --prefix`/etc/profile.d/z.sh
+. `brew --prefix`/etc/profile.d/z.sh
+
+eval "$(rbenv init -)"
 
 # Fixes an issue in Mountain Lion where the native PSQL
 # interferes with running newer versions
 export PATH="/usr/local/bin:$PATH:/Users/aroetker/bin"
 export JAVA_HOME=$(/usr/libexec/java_home)
 
-export SRCDIR=$HOME/src
-export GOPATH=$SRCDIR/go
+export PROJECTS=$HOME/Projects
+export GOPATH=$PROJECTS/go
 export GOROOT=`go env GOROOT`
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
-export PATH="$PATH:$SRCDIR/pe-testing/scripts"
+export PATH=$PATH:$PROJECTS/pe-testing/scripts
+
+# For boot2docker/docker
+export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375

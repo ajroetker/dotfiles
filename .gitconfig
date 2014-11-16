@@ -6,11 +6,12 @@
 [github]
 	user = ajroetker
 [credential]
-	helper = /opt/boxen/bin/boxen-git-credential
+	helper = osxkeychain
 [alias]
     lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
     fpull = !git fetch upstream && git merge @{u} --ff-only
+    new = !git init && git commit --allow-empty -m 'Initial commit'
 [hub]
     protocol = https
 [core]
-    excludesfile = /opt/boxen/config/git/gitignore
+	editor = vim
