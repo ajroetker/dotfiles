@@ -50,14 +50,12 @@ plugins=(git go golang rbenv vagrant brew lein gem hub)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-. `brew --prefix`/etc/profile.d/z.sh
-
 eval "$(rbenv init -)"
 
 # Fixes an issue in Mountain Lion where the native PSQL
 # interferes with running newer versions
-export PATH="/usr/local/bin:$PATH:/Users/aroetker/bin"
-export JAVA_HOME=$(/usr/libexec/java_home)
+#export PATH="/usr/local/bin:$PATH:/Users/aroetker/bin"
+#export JAVA_HOME=$(/usr/libexec/java_home)
 
 export PROJECTS=$HOME/Projects
 export GOPATH=$PROJECTS/go

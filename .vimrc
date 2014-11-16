@@ -487,50 +487,38 @@ endif
 " Vundle
 filetype off " Off for vundle
 
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    let iCanHazVundle=0
-endif
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Align'
+Plugin 'Gundo'
+Plugin 'Tabular'
+Plugin 'The-NERD-tree'
+Plugin 'tpope/vim-markdown'
+Plugin 'hunner/vim-puppet'
+Plugin 'paredit.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-fireplace'
+Plugin 'guns/vim-clojure-static'
+"Plugin 'tpope / vim-classpath'
+Plugin 'bufexplorer.zip'
+Plugin 'jnwhiteh/vim-golang'
+Plugin 'Solarized'
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'Align'
-Bundle 'Gundo'
-Bundle 'Tabular'
-Bundle 'The-NERD-tree'
-Bundle 'tpope/vim-markdown'
-Bundle 'hunner/vim-puppet'
-Bundle 'derekwyatt/vim-scala'
-"Bundle 'VimClojure'
-Bundle 'paredit.vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-fireplace'
-Bundle 'guns/vim-clojure-static'
-"Bundle 'tpope / vim-classpath'
-Bundle 'Lokaltog/powerline'
-Bundle 'bufexplorer.zip'
-Bundle 'jcf/vim-latex'
-Bundle 'jnwhiteh/vim-golang'
-Bundle 'Solarized'
-
-if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
-
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
 filetype plugin indent on
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
+" Put your non-Plugin stuff after this line
 
 " }}}1
 
