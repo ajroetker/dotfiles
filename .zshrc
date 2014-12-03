@@ -45,7 +45,7 @@ alias be="bundle exec"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git go golang rbenv vagrant brew lein gem hub)
+plugins=(git go golang rbenv vagrant brew lein gem hub docker)
 
 source $ZSH/oh-my-zsh.sh
 

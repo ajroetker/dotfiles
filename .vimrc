@@ -29,8 +29,45 @@ autocmd!
 "-----------------------------------------------------------------------
 " {{{1
 
-" Don't be compatible with vi {{{2
+" Vundle {{{2
+" Don't be compatible with vi
 set nocompatible
+filetype off " Off for vundle
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Align'
+Plugin 'Gundo'
+Plugin 'Tabular'
+Plugin 'The-NERD-tree'
+Plugin 'tpope/vim-markdown'
+Plugin 'hunner/vim-puppet'
+Plugin 'paredit.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-fireplace'
+Plugin 'guns/vim-clojure-static'
+"Plugin 'tpope / vim-classpath'
+Plugin 'bufexplorer.zip'
+Plugin 'jnwhiteh/vim-golang'
+Plugin 'Solarized'
+Plugin 'Lokaltog/vim-distinguished'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 
 " Enable a nice big viminfo file {{{2
 set viminfo='1000,f1,:1000,/1000
@@ -68,13 +105,6 @@ set showfulltag
 " Speed up macros with lazyredraw {{{2
 set lazyredraw
 
-" No annoying error noises {{{2
-set noerrorbells
-set visualbell t_vb=
-if has("autocmd")
-    autocmd GUIEnter * set visualbell t_vb=
-endif
-
 " Scroll buffers of 3x2 {{{2
 set scrolloff=3
 set sidescrolloff=2
@@ -105,27 +135,7 @@ set virtualedit=block
 
 " Try to load a nice colourscheme {{{2
 
-" TODO Pathogen or bust?
-" {rtp}/autoload/has.vim
-" has#colorscheme
-fun! HasColorscheme(name)
-  let pat = 'colors/' . a:name . '.vim'
-  return !empty(globpath(&rtp, pat))
-endfun
-
-if ! has("gui_running")
-    set t_Co=256
-    if HasColorscheme('inkpot')
-      colors inkpot
-    endif
-else
-    if HasColorscheme('inkpot')
-      colors inkpot
-    endif
-    " Turn off the menubar so we don't get key accelerators with Meta.
-    " Don't include the toolbar
-    set guioptions=aegit
-endif
+color distinguished
 " set background=light gives a different style, feel free to choose between them.
 set background=dark
 
@@ -144,19 +154,18 @@ set popt+=syntax:y
 
 " Enable filetype settings {{{2
 if has("eval")
-    filetype off " Off for vundle
     filetype plugin on
     filetype indent on
 endif
 
-" Enable modelines only on secure vim versions {{{2
-if (v:version >= 604)
-    set modeline
-else
-    set nomodeline
-endif
+" Enable modelines {{{2
+set modeline
 
+hi User1 cterm=BOLD ctermfg=green ctermbg=236
+hi User2 cterm=BOLD ctermfg=red   ctermbg=236
 " Nice statusbar {{{2
+hi User1 cterm=BOLD ctermfg=green ctermbg=236
+hi User2 cterm=BOLD ctermfg=red   ctermbg=236
 set laststatus=2
 
 set statusline=
@@ -187,7 +196,7 @@ set statusline+=%2*0x%-8B\                   " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
 " Nice window title {{{2
-if has('title') && (has('gui_running') || &title)
+if has('title') && &title
     set titlestring=
     set titlestring+=%f\                                              " file name
     set titlestring+=%h%m%r%w                                         " flags
@@ -227,19 +236,12 @@ set path+=src/,include/
 let &inc.=' ["<]'
 
 " Show tabs and trailing whitespace visually {{{2
-if (&termencoding == "utf-8") || has("gui_running")
-    if v:version >= 700
-        set list listchars=tab:»·,trail:·,extends:…,nbsp:‗
-    else
-        set list listchars=tab:»·,trail:·,extends:…
-    endif
+if (&termencoding == "utf-8")
+  set list listchars=tab:»·,trail:·,extends:…,nbsp:‗
 else
-    if v:version >= 700
-        set list listchars=tab:>-,trail:.,extends:>,nbsp:_
-    else
-        set list listchars=tab:>-,trail:.,extends:>
-    endif
+  set list listchars=tab:>-,trail:.,extends:>,nbsp:_
 endif
+
 map <silent> <F9> :set noet<CR>:set sw=8<CR>:set ts=8<CR>
 map <silent> <S-F9> :set list! listchars<CR>
 
@@ -269,6 +271,7 @@ if has("autocmd")
     augroup c " {{{3
         autocmd BufRead,BufNewFile *.c,*.cpp
                     \ set tabstop=2 shiftwidth=2 softtabstop=2 et
+        au BufNewFile,BufRead *.flex set filetype=c
     augroup puppet " {{{3
         autocmd BufRead,BufNewFile *.pp
                     \ set tabstop=2 shiftwidth=2 softtabstop=2 et
@@ -461,64 +464,11 @@ if has("eval")
     let g:vimsyntax_noerror=1
     let g:vimembedscript=0
 
-    " eruby options
-    au Syntax * hi link erubyRubyDelim Directory
-
     " ruby options
     let ruby_operators=1
     let ruby_space_errors=1
 
-    " Settings for netrw
-    let g:netrw_list_hide='^\.,\~$'
-
-    " Settings for vim-latex
-    " IMPORTANT: grep will sometimes skip displaying the file name if you
-    " search in a singe file. This will confuse Latex-Suite. Set your grep
-    " program to always generate a file-name.
-    set grepprg=grep\ -nH\ $*
-
-    " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-    " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-    " The following changes the default filetype back to 'tex':
-    let g:tex_flavor='latex'
-
 endif
-
-" Vundle
-filetype off " Off for vundle
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'Align'
-Plugin 'Gundo'
-Plugin 'Tabular'
-Plugin 'The-NERD-tree'
-Plugin 'tpope/vim-markdown'
-Plugin 'hunner/vim-puppet'
-Plugin 'paredit.vim'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-fireplace'
-Plugin 'guns/vim-clojure-static'
-"Plugin 'tpope / vim-classpath'
-Plugin 'bufexplorer.zip'
-Plugin 'jnwhiteh/vim-golang'
-Plugin 'Solarized'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 " }}}1
 
@@ -527,16 +477,6 @@ filetype plugin indent on
 "-----------------------------------------------------------------------
 " {{{1
 
-" plegado syntax para sgml,htmls,xml y xsl
-au Filetype html,xml,xsl,sgml ",docbook
-" explorador vertical
-let g:explVertical=1
-
-noremap <F5> gg=G2<C-o>
-noremap <S-F5> ggg?G2<C-o>
-noremap <Leader>rg :color relaxedgreen<CR>
-noremap <Leader>ip :color inkpot<CR>
-noremap <Leader>ir :color ir_black<CR>
 syntax sync minlines=200
 
 " Gundo - Vim's undo tree for humans
