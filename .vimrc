@@ -42,6 +42,7 @@ Plugin 'Gundo'
 Plugin 'Tabular'
 Plugin 'The-NERD-tree'
 Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-fugitive'
 Plugin 'hunner/vim-puppet'
 Plugin 'paredit.vim'
 Plugin 'vim-ruby/vim-ruby'
@@ -470,6 +471,12 @@ if has("eval")
 
 endif
 
+" }}}1
+
+" {{{1
+" vim clojure indent settings for emacs compatibility
+let g:clojure_align_multiline_strings = 1
+let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^assoc']
 " }}}1
 
 "-----------------------------------------------------------------------
