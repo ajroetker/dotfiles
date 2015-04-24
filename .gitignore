@@ -1,1 +1,3 @@
 .vim/backups/*
+**.swp
+**.swo

@@ -11,10 +11,10 @@ ZSH_THEME="eastwood"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias emacs="/usr/local/Cellar/emacs/24.3/bin/emacs"
 alias ag="ag --all-types --smart-case"
-alias phusion="phusion --password=digifreak1991"
 alias be="bundle exec"
+alias clj="cd ~/Projects/clj/src/github.com/ajroetker"
+alias pdb="cd ~/Projects/clj/src/github.com/ajroetker/puppetdb"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"

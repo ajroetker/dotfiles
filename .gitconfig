@@ -15,3 +15,6 @@
     protocol = https
 [core]
 	editor = vim
+    excludesfile = ~/.gitignore
+[push]
+	default = matching
