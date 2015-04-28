@@ -2,10 +2,10 @@
 
 pushd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null
 if ! [ -e ~/.vim/bundle/Vundle.vim ]; then
-    mkdir -p .vim/backups
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
 fi
+mkdir -p .vim/backups
 dir=`pwd`
 for line in `ls -la | awk '/ \.+/ { print $9 }'`; do
     if [ $line != '.' -a $line != '..' -a $line != '.git' ]; then

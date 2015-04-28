@@ -15,6 +15,7 @@
                       evil-leader
                       better-defaults
                       flx-ido
+                      ido-ubiquitous
                       helm
                       helm-projectile
                       projectile
@@ -31,9 +32,12 @@
     (package-install p)))
 
 (require 'flx-ido)
+(require 'ido-ubiquitous)
+(require 'icomplete)
 (ido-mode 1)
 (ido-everywhere 1)
 (flx-ido-mode 1)
+(ido-ubiquitous-mode 1)
 ;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
@@ -57,7 +61,7 @@
   "{" 'paredit-backward-barf-sexp
   "W" 'paredit-wrap-round
   "w[" 'paredit-wrap-square
-  "w{" 'paredit-wrap-square
+  "w{" 'paredit-wrap-curly
   "S" 'paredit-splice-sexp
   "e" 'projectile-find-file
   "b" 'switch-to-buffer
@@ -94,6 +98,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(require 'cider)
 (require 'ac-cider)
 (add-hook 'cider-mode-hook 'ac-flyspell-workaround) 
 (add-hook 'cider-mode-hook 'ac-cider-setup)
@@ -108,3 +113,6 @@
 
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 (add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
+
+(add-hook 'cider-repl-mode-hook #'paredit-mode)
+(add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)

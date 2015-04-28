@@ -13,8 +13,10 @@ ZSH_THEME="eastwood"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ag="ag --all-types --smart-case"
 alias be="bundle exec"
+alias pgist="gist -p"
 alias clj="cd ~/Projects/clj/src/github.com/ajroetker"
 alias pdb="cd ~/Projects/clj/src/github.com/ajroetker/puppetdb"
+alias cleanpdb='pdb && dropdb puppetdb && createdb -E UTF8 -O puppetdb puppetdb && psql -c "create extension pg_trgm; create extension pg_stat_statements;" -d puppetdb && lein run services -c ./postgres.ini'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -56,8 +58,7 @@ eval "$(rbenv init -)"
 
 # Fixes an issue in Mountain Lion where the native PSQL
 # interferes with running newer versions
-#export PATH="/usr/local/bin:$PATH:/Users/aroetker/bin"
-#export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH="/usr/local/bin:$PATH"
 
 export PROJECTS=$HOME/Projects
 export GOPATH=$PROJECTS/go
