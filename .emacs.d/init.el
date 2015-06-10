@@ -15,6 +15,8 @@
                       evil-leader
                       better-defaults
                       flx-ido
+                      rust-mode
+                      puppet-mode
                       ido-ubiquitous
                       helm
                       helm-projectile
@@ -93,6 +95,8 @@
 ;; http://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files 
 ;; make all backup files go into a directory
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" "~/.emacs.d/autosaves")))
 
 ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 (require 'auto-complete-config)
