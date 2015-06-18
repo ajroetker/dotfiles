@@ -22,6 +22,8 @@
                       helm-projectile
                       projectile
                       paredit
+                      rust-mode
+                      puppet-mode
                       rainbow-delimiters
                       color-theme
                       auto-complete

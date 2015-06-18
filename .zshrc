@@ -10,6 +10,10 @@ alias be="bundle exec"
 alias ppjson="python -m json.tool"
 alias pdb="cd ~/Projects/clj/puppetdb"
 alias emacs='open -a /Applications/Emacs.app $1'
+alias hco="hub checkout"
+alias pdb="cd ~/Projects/clj/puppetdb"
+alias cleanpdb='pdb && dropdb puppetdb && createdb -E UTF8 -O puppetdb puppetdb && psql -c "create extension pg_trgm; create extension pg_stat_statements;" -d puppetdb && lein run services -c ./postgres.ini'
+alias em="emacs"
 
 plugins=(git go golang rbenv vagrant brew lein gem hub docker rust)
 
