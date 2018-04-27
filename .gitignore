@@ -1,3 +1,5 @@
 .vim/backups/*
+*#
+local.conf
 **.swp
 **.swo

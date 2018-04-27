@@ -7,33 +7,26 @@ ZSH_THEME="eastwood"
 
 alias ag="ag --all-types --smart-case"
 alias be="bundle exec"
-alias ppjson="python -m json.tool"
-alias pdb="cd ~/Projects/clj/puppetdb"
 alias emacs='open -a /Applications/Emacs.app $1'
 alias hco="hub checkout"
-alias pdb="cd ~/Projects/clj/puppetdb"
-alias cleanpdb='pdb && dropdb puppetdb && createdb -E UTF8 -O puppetdb puppetdb && psql -c "create extension pg_trgm; create extension pg_stat_statements;" -d puppetdb && lein run services -c ./postgres.ini'
-alias em="emacs"
 
-plugins=(git go golang rbenv vagrant brew lein gem hub docker rust)
+plugins=(git hub go golang ruby gem bundler python vagrant lein boot2docker docker z rust)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 . `brew --prefix`/etc/profile.d/z.sh
 
-eval "$(rbenv init -)"
+# added by travis gem
+[ -f /Users/aroetker/.travis/travis.sh ] && source /Users/aroetker/.travis/travis.sh
 
-# Fixes an issue in Mountain Lion where the native PSQL
-# interferes with running newer versions
-export PATH="/usr/local/bin:$PATH"
-
-export PROJECTS=$HOME/Projects
-export GOPATH=$PROJECTS/go
-export GOROOT=`go env GOROOT`
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
-export PATH=$PATH:$PROJECTS/pe-testing/scripts
-
-# For boot2docker/docker
-export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
+pbr_beaker() {
+    if [ -z "${1}" ]; then
+        echo "Need a sha/version to run with"
+        return
+    fi
+    if [ -n "${2}" ]; then
+        flag="--tests tests"
+    fi
+    SHA=${1} pe_dist_dir=http://enterprise.delivery.puppetlabs.net/2017.2/ci-ready S3_BUCKET_NAME=puppet-aws-opsworks-prototypes pe_ver=$(curl http://getpe.delivery.puppetlabs.net/latest/2017.2) PE_FAMILY=2017.2 bundle exec beaker --debug --hosts centos6-64backup.mdca-64restore.a-centos7-64.a --keyfile /Users/aroetker/.ssh/id_rsa-acceptance --load-path lib --pre-suite pre-suite --preserve-hosts always ${flag}
+}
